@@ -12,5 +12,7 @@ RUN python3 setup.py build_exe
 FROM alpine:3.6
 RUN apk --no-cache upgrade && apk --no-cache add ca-certificates
 COPY --from=builder build/exe.linux-x86_64-3.6 /curator/
+RUN mkdir -p /.curator
+COPY ./examples/curator.yml /.curator/
 USER nobody:nobody
 ENTRYPOINT ["/curator/curator"]
